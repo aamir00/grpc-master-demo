@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.wavemaker.poc.grpc.model";
+option java_outer_classname = "EmployeeServiceProto";
+
+package grpctest;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+message EchoRequest {
+    string firstName = 1;
+    string lastName = 2;
+}
+
+message EchoResponse {
+    string greeting = 1;
+}
+
+
+message Employee {
+    string id = 1;
+    string firstname = 2;
+    string lastname = 3;
+    string locations = 4;
+    bool active = 5;
+}
+
+service EmployeeService {
+    rpc addEmployee (Employee) returns (google.protobuf.StringValue);
+    rpc getEmployee (google.protobuf.StringValue) returns (Employee);
+    rpc addEmployees(stream Employee) returns ( google.protobuf.StringValue);
+    rpc getEmployees(google.protobuf.Empty) returns (stream Employee);
+    rpc getEmployeesStream(stream google.protobuf.StringValue) returns (stream Employee);
+    rpc test(google.protobuf.StringValue) returns (Employee);
+}
